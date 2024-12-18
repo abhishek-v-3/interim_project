@@ -3,7 +3,7 @@ package com.cts.ClinicManagement.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.ClinicManagement.entity.Doctor;
-import com.cts.ClinicManagement.service.DoctorService;
+import com.cts.ClinicManagement.service.impl.DoctorServiceImpl;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class DoctorController {
 
     @Autowired
-	private DoctorService doctorService;
+	private DoctorServiceImpl doctorService;
 	
 	@GetMapping("/")
 	public List<Doctor> getAllPatientDetails() {
@@ -34,7 +34,7 @@ public class DoctorController {
 	@GetMapping("/{id}")
 	public Doctor getPatientDetailsById(@PathVariable("id") int id) {
 		
-		return doctorService.viewDoctorsById(id);
+		return doctorService.viewDoctorById(id);
 	}
 
 	@PostMapping("/create")

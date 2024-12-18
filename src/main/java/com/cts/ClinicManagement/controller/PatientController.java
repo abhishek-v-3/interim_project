@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.ClinicManagement.entity.Patient;
-import com.cts.ClinicManagement.service.PatientService;
+import com.cts.ClinicManagement.service.impl.PatientServiceImpl;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class PatientController {
 
 	@Autowired
-	private PatientService patientService;
+	private PatientServiceImpl patientService;
 	
 	@GetMapping("/")
 	public ResponseEntity<List<Patient>> getAllPatientDetails() {
@@ -34,7 +33,7 @@ public class PatientController {
 	}
 	
 	@GetMapping("/{id}")
-	public Patient getPatientDetailsById(@PathVariable("id") int id) {
+	public Patient getPatientDetailsById(@PathVariable("id") Long id) {
 		
 		return patientService.viewPatientById(id);
 	}
@@ -55,7 +54,7 @@ public class PatientController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public String deleteById(@PathVariable("id") int id){
+	public String deleteById(@PathVariable("id") Long id){
 		patientService.deletePatient(id);
 		return "The patient with id : "+id + " has been deleted";
 	}

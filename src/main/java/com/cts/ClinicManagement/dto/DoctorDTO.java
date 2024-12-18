@@ -1,17 +1,23 @@
 package com.cts.ClinicManagement.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class DoctorDTO {
 
-    @NotNull
-	private String name;
-    @NotNull
-	private int age;
-    @NotNull
-	private String dept;
-    @NotNull
-	private String specialization;
+    @NotBlank(message = "Name is mandatory")
+    private String name;
+
+    @Min(value = 25, message = "Age should be at least 25")
+    @Max(value = 70, message = "Age should not be more than 70")
+    private int age;
+
+    @NotBlank(message = "Department is mandatory")
+    private String dept;
+
+    @NotBlank(message = "Specialization is mandatory")
+    private String specialization;
 }

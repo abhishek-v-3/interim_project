@@ -1,14 +1,15 @@
 package com.cts.ClinicManagement.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class SignInDto {
 
-    @NotBlank(message = "user name cannot be blank")
-    private String userNameorEmail;
+    @NotNull(message = "Phone number cannot be null")
+    @Pattern(regexp = "\\d{10}", message = "Phone number should be 10 digits")
+    private Long phoneNumber;
 
-    @NotBlank(message = "password cannot be blank")
+    @NotBlank(message = "Password cannot be blank")
     private String password;
 }
