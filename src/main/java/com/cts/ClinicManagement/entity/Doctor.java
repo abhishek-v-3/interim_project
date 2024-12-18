@@ -1,6 +1,5 @@
-package com.cts.entity;
+package com.cts.ClinicManagement.entity;
 
-// import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,22 +8,15 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Patient {
+public class Doctor {
 	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String firstName;
-	private String lastName;
+	private String name;
 	private int age;
-	private String gender;
-	private Long phoneNumber;
+	private String dept;
+	private String specialization;
 	
-	// @Embedded
-	// Address address;
-	
-	
-	
-	
+
 }

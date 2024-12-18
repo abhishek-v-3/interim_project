@@ -1,4 +1,4 @@
-package com.cts.controller;
+package com.cts.ClinicManagement.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api/v1/appointments")
 public class AppointmentController {
 
+    
     @GetMapping("/patient/{id}")
     public String viewAppointmentsByPatientId(@PathVariable("id") int id) {
         return "These are the appointments for patient: "+id;

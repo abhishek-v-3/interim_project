@@ -1,18 +1,29 @@
-package com.cts.service;
+package com.cts.ClinicManagement.service;
 
-import java.util.Optional;
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cts.entity.Patient;
-import com.cts.repository.PatientRepository;
+import com.cts.ClinicManagement.entity.Patient;
+import com.cts.ClinicManagement.repository.PatientRepository;
 
 @Service
 public class PatientService {
 
     @Autowired
     PatientRepository patientRepository;
+
+    public List<Patient> viewAllPatients(){
+        
+        return patientRepository.findAll();
+    }
+
+    public Patient viewPatientById(int id){
+        Patient patient=  patientRepository.findById(id).get();
+        return patient;
+    }
 
     public void addPatient(Patient patient) {
 

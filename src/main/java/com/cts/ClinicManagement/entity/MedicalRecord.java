@@ -1,4 +1,4 @@
-package com.cts.entity;
+package com.cts.ClinicManagement.entity;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package com.cts.controller;
+package com.cts.ClinicManagement.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

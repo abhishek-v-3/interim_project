@@ -1,8 +1,8 @@
-package com.cts.repository;
+package com.cts.ClinicManagement.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.cts.entity.MedicalRecord;
+import com.cts.ClinicManagement.entity.MedicalRecord;
 
 public interface MedicalRecordRepository extends JpaRepository<MedicalRecord,Integer>{
 
