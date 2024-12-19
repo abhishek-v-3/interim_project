@@ -3,6 +3,7 @@ package com.cts.ClinicManagement.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,10 @@ import com.cts.ClinicManagement.service.PatientService;
 public class PatientServiceImpl implements PatientService {
 
     @Autowired
-    PatientRepository patientRepository;
+    private PatientRepository patientRepository;
+
+    @Autowired
+    private ModelMapper mapper;
 
     // method to view all the patients 
     @Override
@@ -83,21 +87,15 @@ public class PatientServiceImpl implements PatientService {
 
     // to convert dto into entity
     public Patient mapToEntity(PatientDTO patientDto) {
-        Patient patient = new Patient();
-        patient.setFirstName(patientDto.getFirstName());
-        patient.setLastName(patientDto.getLastName());
-        patient.setAge(patientDto.getAge());
-        patient.setGender(patientDto.getGender());
+        Patient patient = mapper.map(patientDto, Patient.class);
+        
         return patient;
     }
 
     // to convert entity into dto
     public PatientDTO mapToDto(Patient patient) {
-        PatientDTO patientDTO = new PatientDTO();
-        patientDTO.setFirstName(patient.getFirstName());
-        patientDTO.setLastName(patient.getLastName());
-        patientDTO.setAge(patient.getAge());
-        patientDTO.setGender(patient.getGender());
+        PatientDTO patientDTO = mapper.map(patient, PatientDTO.class);
+
         return patientDTO;
     }
 

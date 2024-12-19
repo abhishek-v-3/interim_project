@@ -10,6 +10,8 @@ import lombok.Data;
 @Data
 public class PatientDTO {
 
+    private Long id;
+    
     @NotBlank(message = "First name is mandatory")
     private String firstName;
 
