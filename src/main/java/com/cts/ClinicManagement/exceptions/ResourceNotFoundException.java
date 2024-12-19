@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ResourceNotFoundException extends RuntimeException {
     private String resourceName;
     private String fieldName;
-    private String fieldValue;
+    private Long fieldValue;
 
-    public ResourceNotFoundException(String resourceName, String fieldName, String fieldValue) {
+    public ResourceNotFoundException(String resourceName, String fieldName, Long fieldValue) {
         // formatting the string of the form :
         // eg : Patient not found with id : 1
         super(String.format("%s not found with %s : %s",resourceName,fieldName,fieldValue));
@@ -26,7 +26,7 @@ public class ResourceNotFoundException extends RuntimeException {
     public String getFieldName() {
         return fieldName;
     }
-    public String getFieldValue() {
+    public Long getFieldValue() {
         return fieldValue;
     }
 
