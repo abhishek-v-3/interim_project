@@ -47,7 +47,14 @@ public class PatientController {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<PatientDTO> updatePatientById(@PathVariable("id") Long id,@RequestBody PatientDTO patientDto){
+	public ResponseEntity<PatientDTO> updatePatientById(@PathVariable("id") Long id,@RequestBody @Valid PatientDTO patientDto){
+
+		// patientService.updatePatient(patientDto);
+		return new ResponseEntity<>(patientService.updatePatient(patientDto,id),HttpStatus.OK);
+
+	}
+	@PutMapping("/patch/{id}")
+	public ResponseEntity<PatientDTO> patchPatientById(@PathVariable("id") Long id,@RequestBody @Valid PatientDTO patientDto){
 
 		// patientService.updatePatient(patientDto);
 		return new ResponseEntity<>(patientService.updatePatient(patientDto,id),HttpStatus.OK);
