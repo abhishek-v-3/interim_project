@@ -2,14 +2,19 @@ package com.cts.ClinicManagement.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cts.ClinicManagement.entity.Doctor;
+import com.cts.ClinicManagement.dto.DoctorDTO;
 import com.cts.ClinicManagement.service.impl.DoctorServiceImpl;
+
+import jakarta.validation.Valid;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,35 +31,42 @@ public class DoctorController {
 	private DoctorServiceImpl doctorService;
 	
 	@GetMapping("/")
-	public List<Doctor> getAllPatientDetails() {
+	public ResponseEntity<List<DoctorDTO>> getAllDoctorDetails() {
 		
-		return doctorService.viewAllDoctors();
+		return new ResponseEntity<>(doctorService.viewAllDoctors(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public Doctor getPatientDetailsById(@PathVariable("id") int id) {
+	public ResponseEntity<DoctorDTO> getDoctorDetailsById(@PathVariable("id") Long id) {
 		
-		return doctorService.viewDoctorById(id);
+		return new ResponseEntity<>(doctorService.viewDoctorById(id),HttpStatus.OK);
 	}
 
 	@PostMapping("/create")
-	public Doctor createNewDoctor(@RequestBody Doctor doctor) {
-		doctorService.addDoctor(doctor);
-		return doctor;
+	public ResponseEntity<DoctorDTO> createNewDoctor(@RequestBody DoctorDTO doctorDto) {
+		return new ResponseEntity<>(doctorService.addDoctor(doctorDto),HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update/{id}")
-	public String updateDoctorById(@PathVariable("id") int id,@RequestBody Doctor doctor){
+	public ResponseEntity<DoctorDTO> updateDoctorById(@PathVariable("id") Long id,@RequestBody DoctorDTO doctorDto){
 
-		doctorService.updateDoctor(doctor);
-		return "The details of doctor : " +id+"  has been updated";
+		
+		return new ResponseEntity<>(doctorService.updateDoctor(doctorDto,id),HttpStatus.OK);
+
+	}
+
+	@PatchMapping("/patch/{id}")
+	public ResponseEntity<DoctorDTO> patchDoctorById(@PathVariable("id") Long id,@RequestBody @Valid DoctorDTO doctorDto){
+
+	
+		return new ResponseEntity<>(doctorService.updateDoctor(doctorDto,id),HttpStatus.OK);
 
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public String deleteById(@PathVariable("id") int id){
+	public ResponseEntity<String> deleteById(@PathVariable("id") Long id){
 		doctorService.deleteDoctor(id);
-		return "The doctor with id : "+id + " has been deleted";
+		return new ResponseEntity<>("The doctor with id : "+id + " has been deleted",HttpStatus.OK);
 	}
 	
     @GetMapping("/doctor/patient/{id}")

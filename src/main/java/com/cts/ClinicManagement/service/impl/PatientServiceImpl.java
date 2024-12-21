@@ -26,7 +26,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientDTO> viewAllPatients() {
 
-        return patientRepository.findAll().stream().map(post-> mapToDto(post)).collect(Collectors.toList());
+        return patientRepository.findAll().stream().map(patient-> mapToDto(patient)).collect(Collectors.toList());
         // return null;
     }
 
