@@ -43,12 +43,12 @@ public class DoctorController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<DoctorDTO> createNewDoctor(@RequestBody DoctorDTO doctorDto) {
+	public ResponseEntity<DoctorDTO> createNewDoctor(@RequestBody @Valid DoctorDTO doctorDto) {
 		return new ResponseEntity<>(doctorService.addDoctor(doctorDto),HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<DoctorDTO> updateDoctorById(@PathVariable("id") Long id,@RequestBody DoctorDTO doctorDto){
+	public ResponseEntity<DoctorDTO> updateDoctorById(@PathVariable("id") Long id,@RequestBody @Valid DoctorDTO doctorDto){
 
 		
 		return new ResponseEntity<>(doctorService.updateDoctor(doctorDto,id),HttpStatus.OK);
@@ -56,7 +56,7 @@ public class DoctorController {
 	}
 
 	@PatchMapping("/patch/{id}")
-	public ResponseEntity<DoctorDTO> patchDoctorById(@PathVariable("id") Long id,@RequestBody @Valid DoctorDTO doctorDto){
+	public ResponseEntity<DoctorDTO> patchDoctorById(@PathVariable("id") Long id,@RequestBody  DoctorDTO doctorDto){
 
 	
 		return new ResponseEntity<>(doctorService.updateDoctor(doctorDto,id),HttpStatus.OK);

@@ -41,7 +41,6 @@ public class PatientController {
 	}
 
 	@PostMapping("/create")
-	// @ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<PatientDTO> createNewPatient(@RequestBody @Valid PatientDTO patientDto) {
 
 		return new ResponseEntity<>(patientService.addPatient(patientDto), HttpStatus.CREATED);
@@ -55,7 +54,7 @@ public class PatientController {
 
 	}
 	@PatchMapping("/patch/{id}")
-	public ResponseEntity<PatientDTO> patchPatientById(@PathVariable("id") Long id,@RequestBody @Valid PatientDTO patientDto){
+	public ResponseEntity<PatientDTO> patchPatientById(@PathVariable("id") Long id,@RequestBody  PatientDTO patientDto){
 
 		// patientService.updatePatient(patientDto);
 		return new ResponseEntity<>(patientService.updatePatient(patientDto,id),HttpStatus.OK);
