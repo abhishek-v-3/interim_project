@@ -13,6 +13,8 @@ import com.cts.ClinicManagement.dto.SignUpDto;
 import com.cts.ClinicManagement.repository.PatientRepository;
 import com.cts.ClinicManagement.service.AuthService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -23,17 +25,13 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/signup")
-    public String signup(@RequestBody(required = true) SignUpDto signUpDto){
+    public ResponseEntity<String> signup(@RequestBody(required = true) @Valid SignUpDto signUpDto){
 
-        if(patientRepository.existsByPhoneNumber(2L)){
-            return "Sign up fialed";
-        }
-
-        return "Sign Up successfull";
+        return new ResponseEntity<>(authService.register(signUpDto),HttpStatus.CREATED);
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> signin(@RequestBody(required = true) SignInDto signInDto){
+    public ResponseEntity<String> signin(@RequestBody(required = true) @Valid SignInDto signInDto){
 
         return new ResponseEntity<>(authService.login(signInDto),HttpStatus.OK);
     }

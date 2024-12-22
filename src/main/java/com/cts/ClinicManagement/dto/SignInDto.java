@@ -16,7 +16,7 @@ public class SignInDto {
 
     @NotNull(message = "Phone number cannot be null")
     @Pattern(regexp = "\\d{10}", message = "Phone number should be 10 digits")
-    private Long phoneNumber;
+    private String phoneNumber;
 
     @NotBlank(message = "Password cannot be blank")
     private String password;

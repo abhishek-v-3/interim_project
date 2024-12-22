@@ -1,5 +1,6 @@
 package com.cts.ClinicManagement.dto;
 
+import jakarta.validation.constraints.Email;
 // import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,12 +17,16 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SignUpDto {
 
+    @NotBlank(message = "Please provide a name")
+    private String name;
+
     @NotNull(message = "Phone number cannot be null")
     @Pattern(regexp = "\\d{10}", message = "Phone number should be 10 digits")
-    private Long phoneNumber;
+    private String phoneNumber;
 
-    // @Email(message = "Email should be valid")
-    // private String email;
+    @Email(message = "Email should be in correct format")
+    @NotNull(message = "Email cannot be null")
+    private String email;
 
     @NotBlank(message = "Password cannot be blank")
     @Size(min = 8, max = 32, message = "Password should have minimum 8 and maximum 32 characters")

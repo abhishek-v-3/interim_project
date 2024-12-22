@@ -31,10 +31,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    // @Column(nullable = false, unique = true)
-    // private String email;
     @Column(nullable = false, unique = true)
-    private Long phoneNumber;
+    private String email;
+    @Column(nullable = false, unique = true)
+    private String phoneNumber;
     @Column(nullable = false)
     private String password;
 
