@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -37,19 +39,19 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers(HttpMethod.GET,"/home")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
+                        authorize
+                        .requestMatchers(HttpMethod.GET,"/home").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/").permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/swagger/**","/v3/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/v1/**").permitAll()
+                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
         
     }
 
-    // @Bean
-    // public AuthenticationManager authenticationManager(){
-    //     return new Authen
-    // }
+    
     
 
 }

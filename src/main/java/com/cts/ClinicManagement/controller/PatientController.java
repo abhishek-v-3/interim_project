@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -40,12 +41,14 @@ public class PatientController {
 		return new ResponseEntity<>(patientService.viewPatientById(id), HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('USER')")
 	@PostMapping("/create")
 	public ResponseEntity<PatientDTO> createNewPatient(@RequestBody @Valid PatientDTO patientDto) {
 
 		return new ResponseEntity<>(patientService.addPatient(patientDto), HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasRole('USER')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<PatientDTO> updatePatientById(@PathVariable("id") Long id,@RequestBody @Valid PatientDTO patientDto){
 
@@ -53,6 +56,7 @@ public class PatientController {
 		return new ResponseEntity<>(patientService.updatePatient(patientDto,id),HttpStatus.OK);
 
 	}
+	@PreAuthorize("hasRole('USER')")
 	@PatchMapping("/patch/{id}")
 	public ResponseEntity<PatientDTO> patchPatientById(@PathVariable("id") Long id,@RequestBody  PatientDTO patientDto){
 
@@ -61,6 +65,7 @@ public class PatientController {
 
 	}
 
+	@PreAuthorize("hasRole('USER')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {
 		patientService.deletePatient(id);
