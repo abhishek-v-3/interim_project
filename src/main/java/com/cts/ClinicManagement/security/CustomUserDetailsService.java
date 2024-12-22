@@ -20,14 +20,21 @@ public class CustomUserDetailsService implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
     @Override
-    public UserDetails loadUserByUsername(String emailOrphoneNumber) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
+        long parsedNumber;
+        try {
+            parsedNumber= Long.parseLong(phoneNumber);
+        } catch (NumberFormatException e) {
+            throw new UsernameNotFoundException("Invalid phone number format: " + phoneNumber);
+        }
+    
         // loading user from database
-        User user= userRepository.findByEmailOrPhoneNumber(emailOrphoneNumber, Long.parseLong(emailOrphoneNumber))
+        User user= userRepository.findByPhoneNumber(parsedNumber)
         .orElseThrow(()->
-         new UsernameNotFoundException("User not found with email or phone number: "+emailOrphoneNumber));
+         new UsernameNotFoundException("User not found with phone number: "+phoneNumber));
         Set<GrantedAuthority> authorities = user.getRoles().stream().map((role)-> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toSet());
         
-        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),authorities);
+        return new org.springframework.security.core.userdetails.User(user.getPhoneNumber().toString(),user.getPassword(),authorities);
     }
 
 }
