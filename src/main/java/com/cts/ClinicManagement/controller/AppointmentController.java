@@ -1,8 +1,12 @@
 package com.cts.ClinicManagement.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,16 +27,23 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
-    // view all appointments of a patient
-    @GetMapping("/patient/{id}")
-    public String viewAppointmentsByPatientId(@PathVariable("id") Long id) {
-        return "These are the appointments for patient: "+id;
+    // view all appointments
+    @GetMapping("/")
+    public ResponseEntity<List<AppointmentDTO>> viewAllAppointments() {
+        return new ResponseEntity<>(appointmentService.viewAllAppointments(),HttpStatus.OK);
     }
     // add a new appointment
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/patient/{patientid}/{doctorid}/add")
     public ResponseEntity<AppointmentDTO> addAppointmentForPatient(@PathVariable("patientid") Long patientId,@PathVariable("doctorid") Long doctorId,@RequestBody @Valid AppointmentDTO appointmentDto ) {
         return new ResponseEntity<>(appointmentService.addAppointment(patientId, doctorId, appointmentDto),HttpStatus.CREATED);
     }
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/delete/{id}")
+	public ResponseEntity<String> deleteAppointmentById(@PathVariable("id") Long id) {
+		appointmentService.deleteAppointment(id);
+		return new ResponseEntity<>("Appointement with id : "+id +" deleted successfully",HttpStatus.OK);
+	}
 
     // view appointments for a doctor
     @GetMapping("/doctor/{id}")

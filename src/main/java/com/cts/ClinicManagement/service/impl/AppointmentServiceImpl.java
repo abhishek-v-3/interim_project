@@ -64,8 +64,8 @@ public class AppointmentServiceImpl implements AppointmentService{
 
     @Override
     public void deleteAppointment(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAppointment'");
+        Appointment appointmentToDelete = appointmentRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Appointment", "id", id));
+        appointmentRepository.delete(appointmentToDelete);
     }
 
     // to convert dto into entity
