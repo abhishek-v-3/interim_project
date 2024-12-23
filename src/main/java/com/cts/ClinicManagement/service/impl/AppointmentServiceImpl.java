@@ -58,8 +58,10 @@ public class AppointmentServiceImpl implements AppointmentService{
 
     @Override
     public AppointmentDTO updateAppointment(AppointmentDTO appointmentdDto, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateAppointment'");
+        Appointment appointmentToUpdate = mapToEntity(appointmentdDto);
+        appointmentRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Appointment", "id", id));
+
+        return mapToDto(appointmentRepository.save(appointmentToUpdate));
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +39,13 @@ public class AppointmentController {
     public ResponseEntity<AppointmentDTO> addAppointmentForPatient(@PathVariable("patientid") Long patientId,@PathVariable("doctorid") Long doctorId,@RequestBody @Valid AppointmentDTO appointmentDto ) {
         return new ResponseEntity<>(appointmentService.addAppointment(patientId, doctorId, appointmentDto),HttpStatus.CREATED);
     }
+
+     // update appointment
+     @PreAuthorize("hasRole('ADMIN')")
+     @PutMapping("/update/{id}")
+     public ResponseEntity<AppointmentDTO> updateAppointment(@PathVariable("id") Long id,@RequestBody @Valid AppointmentDTO appointmentDto ) {
+         return new ResponseEntity<>(appointmentService.updateAppointment( appointmentDto,id),HttpStatus.OK);
+     }
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteAppointmentById(@PathVariable("id") Long id) {
