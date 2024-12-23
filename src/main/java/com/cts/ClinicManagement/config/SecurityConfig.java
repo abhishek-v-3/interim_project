@@ -43,6 +43,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/home").permitAll()
                         .requestMatchers(HttpMethod.GET,"/").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/appointments/**").permitAll()
                         .requestMatchers("/swagger/**","/v3/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/v1/**").permitAll()
                         .anyRequest().authenticated())

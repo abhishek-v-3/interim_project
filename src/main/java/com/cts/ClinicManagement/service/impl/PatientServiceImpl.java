@@ -27,7 +27,7 @@ public class PatientServiceImpl implements PatientService {
     public List<PatientDTO> viewAllPatients() {
 
         return patientRepository.findAll().stream().map(patient-> mapToDto(patient)).collect(Collectors.toList());
-        // return null;
+       
     }
 
     // method to view patients by their id
